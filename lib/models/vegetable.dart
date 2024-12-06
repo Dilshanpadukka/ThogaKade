@@ -1,15 +1,16 @@
 import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
 
 enum VegetableCategory {
   leafy,
   root,
   fruit,
   vegetables,
-  other
+  other,
 }
 
 class Vegetable {
+  static int _vegetableCounter = 0; 
+
   final String id;
   final String name;
   final double pricePerKg;
@@ -24,7 +25,12 @@ class Vegetable {
     required this.availableQuantity,
     required this.category,
     required this.expiryDate,
-  }) : id = id ?? const Uuid().v4();
+  }) : id = id ?? _generateVegetableID();
+
+  static String _generateVegetableID() {
+    _vegetableCounter++;
+    return 'V${_vegetableCounter.toString().padLeft(3, '0')}';
+  }
 
   Map<String, dynamic> toJson() {
     return {
@@ -36,7 +42,7 @@ class Vegetable {
       'expiryDate': DateFormat('yyyy-MM-dd').format(expiryDate),
     };
   }
-  
+
   factory Vegetable.fromJson(Map<String, dynamic> json) {
     return Vegetable(
       id: json['id'],
@@ -44,7 +50,7 @@ class Vegetable {
       pricePerKg: json['pricePerKg'],
       availableQuantity: json['availableQuantity'],
       category: VegetableCategory.values.firstWhere(
-        (e) => e.toString().split('.').last == json['category']
+        (e) => e.toString().split('.').last == json['category'],
       ),
       expiryDate: DateFormat('yyyy-MM-dd').parse(json['expiryDate']),
     );

@@ -139,7 +139,7 @@ class CommandHandler {
     try {
       final order = manager.processOrder(orderItems);
       print('Order processed successfully!');
-      print('Total Amount: \$${order.totalAmount.toStringAsFixed(2)}');
+      print('Total Amount: \Rs.${order.totalAmount.toStringAsFixed(2)}');
     } catch (e) {
       print('Error processing order: $e');
     }
@@ -149,7 +149,7 @@ class CommandHandler {
     try {
       final report = manager.generateReport();
       print('Report generated successfully!');
-      print('Total Sales: \$${report.summary['totalSales']}');
+      print('Total Sales: \Rs.${report.summary['totalSales']}');
       print('Total Orders: ${report.summary['totalOrders']}');
     } catch (e) {
       print('Error generating report: $e');

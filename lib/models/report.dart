@@ -1,7 +1,8 @@
-import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
 
 class Report {
+  static int _reportCounter = 0; 
+
   final String reportID;
   final DateTime generatedDate;
   final Map<String, dynamic> summary;
@@ -10,9 +11,14 @@ class Report {
     String? reportID,
     DateTime? generatedDate,
     required this.summary,
-  }) : 
-    reportID = reportID ?? const Uuid().v4(),
+  })  : 
+    reportID = reportID ?? _generateReportID(),
     generatedDate = generatedDate ?? DateTime.now();
+
+  static String _generateReportID() {
+    _reportCounter++;
+    return 'R${_reportCounter.toString().padLeft(3, '0')}';
+  }
 
   Map<String, dynamic> toJson() {
     return {

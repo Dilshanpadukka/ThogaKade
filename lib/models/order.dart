@@ -1,7 +1,7 @@
-import 'package:uuid/uuid.dart';
 import 'vegetable.dart';
 
 class Order {
+  static int _orderCounter = 0; 
   final String orderID;
   final Map<String, double> items;
   final double totalAmount;
@@ -12,9 +12,14 @@ class Order {
     required this.items,
     required this.totalAmount,
     DateTime? timestamp,
-  }) : 
-    orderID = orderID ?? const Uuid().v4(),
+  })  : 
+    orderID = orderID ?? _generateOrderID(),
     timestamp = timestamp ?? DateTime.now();
+
+  static String _generateOrderID() {
+    _orderCounter++;
+    return 'O${_orderCounter.toString().padLeft(3, '0')}';
+  }
 
   Map<String, dynamic> toJson() {
     return {

@@ -89,7 +89,7 @@ class ThogaKadeManager {
 
     for (var veg in _inventory) {
       print('${veg.name} (${veg.category}):');
-      print('  Price: \$${veg.pricePerKg}/kg');
+      print('  Price: \Rs.${veg.pricePerKg}/kg');
       print('  Available: ${veg.availableQuantity} kg');
       print('  Expires: ${veg.expiryDate}');
       print('--------------------');
